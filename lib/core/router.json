@@ -1,0 +1,10 @@
+{
+    "last_updated": "Wed, 29 Sep 2021 17:40:30 GMT",
+    "routes": [
+        {
+            "file_path": "views/master_price_picker/master_price_picker_view.dart",
+            "route_name": "master_price_pickerViewRoute",
+            "view_name": "MasterPricePickerView"
+        }
+    ]
+}
