@@ -6,8 +6,10 @@ import './theme/colors.dart';
 import 'core/locator.dart';
 import 'core/router_constants.dart';
 import 'core/router.dart' as router;
+import 'scraper.dart';
 
 void main() async {
+  // WebScraperAPI().runAliBabaScraper();
   await LocatorInjector.setUpLocator();
   runApp(MyApp());
 }

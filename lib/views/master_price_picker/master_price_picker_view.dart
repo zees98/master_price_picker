@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:master_price_picker/theme/colors.dart';
 import 'package:master_price_picker/widgets/dumb_widgets/CustomTextField.dart';
@@ -30,44 +32,55 @@ class MasterPricePickerView extends StatelessWidget {
                 children: [
                   CustomTextField(
                     labelText: "Search your product here.",
-                    onChanged: (val) {
-                      //TODO: Implement on Change
-                    },
+                    onChanged: viewModel.onQueryChange,
                     suffix: IconButton(
-                        onPressed: () {
-                          //TODO: Implement Search
-                        },
+                        onPressed: viewModel.onClickSearch,
                         icon: Icon(
                           Icons.search,
                           color: compColor,
                         )),
                   ),
-                  Text(
-                    "Recent Items",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.white.withOpacity(
-                        0.75,
+                  if (viewModel.isFetching)
+                    Center(child: CircularProgressIndicator()),
+                  if (viewModel.products.isNotEmpty)
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            "Recent Items",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Colors.white.withOpacity(
+                                0.75,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 9 / 17,
+                                ),
+                                padding: EdgeInsets.symmetric(vertical: 24.0),
+                                itemCount: viewModel.products.length,
+                                itemBuilder: (context, i) {
+                                  var thisProduct = viewModel.products[i];
+                                  return ProductCard(
+                                    title: thisProduct.getName,
+                                    price: thisProduct.getPrice,
+                                    description: "",
+                                    image: thisProduct.getImgURL,
+                                    onLike: () {},
+                                    onPress: () => viewModel.onAdPress(i),
+                                  );
+                                }),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 9 / 17,
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 24.0),
-                        itemCount: 5,
-                        itemBuilder: (context, int) {
-                          return ProductCard(
-                            onLike: () {},
-                            onPress: () {},
-                          );
-                        }),
-                  )
+                    )
                 ],
               ),
             )),
@@ -146,22 +159,23 @@ class ProductCard extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 2,
-                  child: Image.network(image ??
-                      'https://www.gizmochina.com/wp-content/uploads/2019/06/Galaxy-A60-featured.jpg'),
+                  child: Image.network(image),
                 ),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        title ?? "Samsung A60",
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 24.0,
+                          fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(description ?? "6.3 QHD+ 6GB RAM 3500mAH"),
+                      Text(description),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
