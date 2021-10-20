@@ -2,6 +2,7 @@ import 'package:logger/logger.dart';
 import 'package:master_price_picker/core/locator.dart';
 import 'package:master_price_picker/products.dart';
 import 'package:master_price_picker/scraper.dart';
+import 'package:master_price_picker/views/product_detail/product_detail_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:master_price_picker/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -10,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 class MasterPricePickerViewModel extends BaseViewModel {
   Logger log;
 
+  final _navService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
 
   // var items = [
@@ -54,8 +56,9 @@ class MasterPricePickerViewModel extends BaseViewModel {
   }
 
   onAdPress(index) {
-    var link = products[index].getLink;
-    launcher.launch(link);
+    // var link = products[index].getLink;
+    // launcher.launch(link);
+    _navService.navigateToView(ProductDetailView(), arguments: products[index]);
   }
 
   MasterPricePickerViewModel() {

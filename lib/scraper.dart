@@ -39,7 +39,22 @@ class WebScraperAPI {
       print(products.length);
       return products;
     } on Exception catch (e) {
-      print(e);
+      return [];
+    }
+  }
+
+  scrapOneAd(adLink) async {
+    try {
+      final loadPage = await http.get(adLink);
+      print("Scraping started");
+      html.Document document = parser.parse(loadPage.body);
+      // var ratings = document.getElementsByClassName("next-rating-medium");
+      // print(ratings.length);
+      // for (int i = 0; i < document.body.classes.length; i++)
+      print(document.body.classes.contains("rating-wrapper"));
+      return [0];
+    } catch (e) {
+      return [];
     }
   }
 }

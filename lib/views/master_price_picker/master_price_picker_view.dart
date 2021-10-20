@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:master_price_picker/theme/colors.dart';
 import 'package:master_price_picker/widgets/dumb_widgets/CustomTextField.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'master_price_picker_view_model.dart';
 
 class MasterPricePickerView extends StatelessWidget {
@@ -14,7 +16,63 @@ class MasterPricePickerView extends StatelessWidget {
           Widget _) {
         return SafeArea(
           child: Scaffold(
-            drawer: Drawer(),
+            drawer: Drawer(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "SMART\nPIRCE PICKER",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(
+                      8.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          blurRadius: 50,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.qr_code_scanner,
+                      ),
+                      title: Text("Barcode scanner"),
+                      subtitle: Text("Search using barcode/ qr code."),
+                      onTap: () async {
+                        String barcodeScanRes =
+                            await FlutterBarcodeScanner.scanBarcode(
+                          "#ffffff",
+                          "Back",
+                          true,
+                          ScanMode.BARCODE,
+                        );
+                        launch(
+                            "https://www.google.com/search?q=${barcodeScanRes}");
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                ],
+              ),
+            ),
             appBar: AppBar(
               title: Text("Master Price Picker"),
               actions: [

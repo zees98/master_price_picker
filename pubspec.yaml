@@ -17,6 +17,7 @@ dependencies:
     web_scraper: ^0.0.6
     http:
     url_launcher:
+    flutter_barcode_scanner: ^2.0.0
 dev_dependencies:
     flutter_test:
         sdk: flutter
