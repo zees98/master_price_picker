@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:master_price_picker/theme/colors.dart';
+import 'package:master_price_picker/theme/fonts.dart';
 import 'package:master_price_picker/widgets/dumb_widgets/CustomTextField.dart';
 import 'package:stacked/stacked.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,56 +19,50 @@ class MasterPricePickerView extends StatelessWidget {
           child: Scaffold(
             drawer: Drawer(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          colorFilter: ColorFilter.mode(
+                            Colors.black54,
+                            BlendMode.colorBurn,
+                          ),
+                          image: AssetImage(
+                            "assets/drawer.jpeg",
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       child: Text(
-                        "SMART\nPIRCE PICKER",
+                        "SMART\nPRICE PICKER",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 30,
+                        style: titleFont.copyWith(
+                          color: backgroundColor,
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.all(
-                      8.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade400,
-                          blurRadius: 50,
-                        )
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        _buildDrawerButton(),
+                        _buildDrawerButton(
+                            icon: Icons.file_copy,
+                            title: "Export",
+                            subtitle: "Save your search as Excel sheet",
+                            onPressed: viewModel.createExcelOfProducts),
                       ],
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                    ),
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.qr_code_scanner,
-                      ),
-                      title: Text("Barcode scanner"),
-                      subtitle: Text("Search using barcode/ qr code."),
-                      onTap: () async {
-                        String barcodeScanRes =
-                            await FlutterBarcodeScanner.scanBarcode(
-                          "#ffffff",
-                          "Back",
-                          true,
-                          ScanMode.BARCODE,
-                        );
-                        launch(
-                            "https://www.google.com/search?q=${barcodeScanRes}");
-                      },
                     ),
                   ),
                   Expanded(
+                    flex: 1,
                     child: Container(),
                   ),
                 ],
@@ -170,6 +165,44 @@ class MasterPricePickerView extends StatelessWidget {
       viewModelBuilder: () => MasterPricePickerViewModel(),
     );
   }
+
+  Container _buildDrawerButton({icon, title, subtitle, onPressed}) {
+    return Container(
+      margin: EdgeInsets.all(
+        8.0,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade400,
+            blurRadius: 50,
+          )
+        ],
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+      ),
+      child: ListTile(
+        leading: Icon(
+          icon ?? Icons.qr_code_scanner,
+        ),
+        title: Text(title ?? "Barcode scanner"),
+        subtitle: Text(subtitle ?? "Search using barcode/ qr code."),
+        onTap: onPressed ??
+            () async {
+              String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+                "#ffffff",
+                "Back",
+                true,
+                ScanMode.BARCODE,
+              );
+              if (barcodeScanRes != "-1")
+                launch("https://www.google.com/search?q=${barcodeScanRes}");
+            },
+      ),
+    );
+  }
 }
 
 class ProductCard extends StatelessWidget {
@@ -239,10 +272,7 @@ class ProductCard extends StatelessWidget {
                         children: [
                           Text(
                             "\$ ${price ?? 290}",
-                            style: TextStyle(
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: titleFont,
                           ),
                           IconButton(
                             onPressed: onPress,

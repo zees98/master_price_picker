@@ -20,26 +20,39 @@ class WebScraperAPI {
         var imgLink = prices[i]
             .getElementsByClassName("seb-img-switcher__imgs")[0]
             .attributes['data-image'];
-        var name = prices[i].getElementsByClassName("large")[0].text;
-        print(imgLink);
+        var name = prices[i]
+            .getElementsByClassName("elements-title-normal__content")[0]
+            .text;
+        var ratingsElements = prices[i]
+            .getElementsByClassName("seb-supplier-review-gallery-test__score");
+        print(ratingsElements);
+        var ratings =
+            ratingsElements.isEmpty ? "N/A" : ratingsElements.first.text;
+        // print(imgLink);
         var url = prices[i].querySelectorAll("[href]")[0].attributes['href'];
-        print(url);
+        // print(url);
         var price = prices[i]
             .getElementsByClassName("elements-offer-price-normal__price")[0]
             .text;
         price = price.split("-")[0].replaceAll("US\$", "").replaceAll(",", "");
         var doublePrice = double.parse(price);
-        products.add(Product(
+        // print(name);
+        products.add(
+          Product(
             name: name,
             link: "https:$url",
             price: doublePrice,
-            imgURL: "https:$imgLink"));
+            imgURL: "https:$imgLink",
+            ratings: ratings,
+          ),
+        );
       }
 
       print(products.length);
       return products;
     } on Exception catch (e) {
-      return [];
+      print("Scraper stuck on an error");
+      return products;
     }
   }
 

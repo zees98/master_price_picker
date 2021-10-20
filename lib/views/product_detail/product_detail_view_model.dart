@@ -4,6 +4,7 @@ import 'package:master_price_picker/products.dart';
 import 'package:master_price_picker/scraper.dart';
 import 'package:stacked/stacked.dart';
 import 'package:master_price_picker/core/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailViewModel extends FutureViewModel {
   Logger log;
@@ -18,6 +19,10 @@ class ProductDetailViewModel extends FutureViewModel {
   Future runScraper() {
     print(product.getLink);
     return WebScraperAPI().scrapOneAd(product.getLink);
+  }
+
+  openAd() async {
+    await launch(product.getLink);
   }
 
   @override

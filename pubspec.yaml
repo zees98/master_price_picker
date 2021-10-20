@@ -3,39 +3,43 @@ description: A new Flutter project.
 publish_to: none
 version: 1.0.0+1
 environment:
-    sdk: '>=2.3.0 <3.0.0'
+  sdk: ">=2.3.0 <3.0.0"
 dependencies:
-    flutter:
-        sdk: flutter
-    cupertino_icons: ^1.0.2
-    get_it: ^4.0.4
-    logger: ^0.9.2
-    stacked: ^1.7.6
-    stacked_services: ^0.5.4+2
-    responsive_builder: ^0.2.0+2
-    equatable: ^1.2.4
-    web_scraper: ^0.0.6
-    http:
-    url_launcher:
-    flutter_barcode_scanner: ^2.0.0
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  get_it: ^4.0.4
+  logger: ^0.9.2
+  stacked: ^1.7.6
+  stacked_services: ^0.5.4+2
+  responsive_builder: ^0.2.0+2
+  equatable: ^1.2.4
+  web_scraper: ^0.0.6
+  http:
+  url_launcher:
+  flutter_barcode_scanner: ^2.0.0
+  # excel:
+  downloads_path_provider: ^0.1.0
+  permission_handler: 5.1.0+2
+  syncfusion_flutter_xlsio: ^19.3.46-beta
+  open_file:
 dev_dependencies:
-    flutter_test:
-        sdk: flutter
+  flutter_test:
+    sdk: flutter
 flutter:
-    uses-material-design: true
-
+  uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+    - assets/
   #  - images/a_dot_ham.jpeg
-      
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-      
+
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-      
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
