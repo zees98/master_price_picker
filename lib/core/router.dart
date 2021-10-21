@@ -6,6 +6,7 @@ import 'package:master_price_picker/core/router_constants.dart';
 import 'package:master_price_picker/views/master_price_picker/master_price_picker_view.dart' as view0;
 import 'package:master_price_picker/views/login_screen/login_screen_view.dart' as view1;
 import 'package:master_price_picker/views/splash_screen/splash_screen_view.dart' as view2;
+import 'package:master_price_picker/views/product_detail/product_detail_view.dart' as view3;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -16,6 +17,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => view1.LoginScreenView());
       case splashScreenViewRoute:
         return MaterialPageRoute(builder: (_) => view2.SplashScreenView());
+      case productDetailViewRoute:
+        return MaterialPageRoute(builder: (_) => view3.ProductDetailView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

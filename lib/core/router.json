@@ -15,6 +15,11 @@
             "file_path": "views/splash_screen/splash_screen_view.dart",
             "route_name": "splash_screenViewRoute",
             "view_name": "SplashScreenView"
+        },
+        {
+            "file_path": "views/product_detail/product_detail_view.dart",
+            "route_name": "product_detailViewRoute",
+            "view_name": "ProductDetailView"
         }
     ]
 }
