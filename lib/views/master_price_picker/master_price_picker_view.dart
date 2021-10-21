@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:master_price_picker/theme/colors.dart';
 import 'package:master_price_picker/widgets/dumb_widgets/CustomTextField.dart';
@@ -73,7 +74,17 @@ class MasterPricePickerView extends StatelessWidget {
                                     price: thisProduct.getPrice,
                                     description: "",
                                     image: thisProduct.getImgURL,
-                                    onLike: () {},
+                                    onLike: () {
+                                      final userId =
+                                          FirebaseAuth.instance.currentUser;
+                                      print('UserID: ${userId}');
+                                      if (userId != null) {
+                                        //save to firebase
+                                      } else {
+                                        viewModel
+                                            .navigateToLoginScreen(thisProduct);
+                                      }
+                                    },
                                     onPress: () => viewModel.onAdPress(i),
                                   );
                                 }),
