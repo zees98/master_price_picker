@@ -9,6 +9,7 @@ import 'package:master_price_picker/views/splash_screen/splash_screen_view.dart'
 import 'package:master_price_picker/views/product_detail/product_detail_view.dart' as view3;
 import 'package:master_price_picker/views/favorite_screen/favorite_screen_view.dart' as view4;
 import 'package:master_price_picker/views/register_screen/register_screen_view.dart' as view5;
+import 'package:master_price_picker/views/favourite_ads/favourite_ads_view.dart' as view6;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,6 +26,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => view4.FavoriteScreenView());
       case registerScreenViewRoute:
         return MaterialPageRoute(builder: (_) => view5.RegisterScreenView());
+      case favouriteAdsViewRoute:
+        return MaterialPageRoute(builder: (_) => view6.FavouriteAdsView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
