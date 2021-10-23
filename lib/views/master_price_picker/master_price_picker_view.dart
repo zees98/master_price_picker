@@ -127,12 +127,12 @@ class MasterPricePickerView extends StatelessWidget {
                                     price: thisProduct.getPrice,
                                     description: "",
                                     image: thisProduct.getImgURL,
-                                    onLike: () {
-                                      final userId =
-                                          FirebaseAuth.instance.currentUser;
+                                    onLike: () async {
+                                      var userId = await FirebaseAuth.instance
+                                          .currentUser();
                                       print('UserID: ${userId}');
                                       if (userId != null) {
-                                        //save to firebase
+                                         //await FirebaseAuth.instance.signOut();
                                       } else {
                                         viewModel
                                             .navigateToLoginScreen(thisProduct);

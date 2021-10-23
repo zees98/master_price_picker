@@ -19,6 +19,8 @@ dependencies:
   url_launcher:
   flutter_barcode_scanner: ^2.0.0
   animated_splash_screen:
+  google_fonts:
+  flutter_screenutil: ^4.0.3+2
     #firebase
   firebase_core:
   firebase_auth:

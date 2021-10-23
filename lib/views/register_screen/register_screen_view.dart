@@ -5,14 +5,13 @@ import 'package:master_price_picker/theme/colors.dart';
 import 'package:master_price_picker/widgets/app_button.dart';
 import 'package:master_price_picker/widgets/field.dart';
 import 'package:stacked/stacked.dart';
-import 'login_screen_view_model.dart';
-
-class LoginScreenView extends StatelessWidget {
+import 'register_screen_view_model.dart';
+          
+class RegisterScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginScreenViewModel>.reactive(
-      builder:
-          (BuildContext context, LoginScreenViewModel viewModel, Widget _) {
+    return ViewModelBuilder<RegisterScreenViewModel>.reactive(
+      builder: (BuildContext context, RegisterScreenViewModel viewModel, Widget _) {
         return Scaffold(
           appBar: AppBar(),
           body: ScreenUtilInit(
@@ -60,7 +59,7 @@ class LoginScreenView extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Login",
+                                          "Register",
                                           style: GoogleFonts.montserrat(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w600,
@@ -68,6 +67,16 @@ class LoginScreenView extends StatelessWidget {
                                         ),
                                       ],
                                     ),
+                                  ),
+                                  Field(
+                                    leadingText: "",
+                                    hinttext: 'Name',
+                                    color: backgroundColor,
+                                    textColor: Colors.black,
+                                    type: false,
+                                    onchanged: (value) {
+                                      viewModel.name = value;
+                                    },
                                   ),
                                   Field(
                                     leadingText: "",
@@ -89,46 +98,14 @@ class LoginScreenView extends StatelessWidget {
                                       viewModel.password = value;
                                     },
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 4, right: 16, bottom: 4),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        InkWell(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8)),
-                                          onTap: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //       builder: (context) =>
-                                            //           ForgotPasswordScreenView(),
-                                            //     ));
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Forgot your password?",
-                                              style: TextStyle(
-                                                fontFamily: 'WorkSans',
-                                                color: backgroundColor,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                          
                                   SizedBox(
                                     height: 10,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: AppButton(
-                                      text: "Login",
+                                      text: "Register",
                                       color: backgroundColor,
                                       textColor: Colors.white,
                                       onpressed: () async {
@@ -141,15 +118,15 @@ class LoginScreenView extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text("Don't have an account?"),
+                                        Text("Already have an account? "),
                                         GestureDetector(
                                             child: Text(
-                                          "Sign Up",
+                                          "Login",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                         onTap: (){
-                                          viewModel.navigateToRegisterScreen();
+                                           viewModel.navigateToLoginScreen();
                                         },),
                                       ],
                                     ),
@@ -168,7 +145,7 @@ class LoginScreenView extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => LoginScreenViewModel(context),
+      viewModelBuilder: () => RegisterScreenViewModel(),
     );
   }
 }

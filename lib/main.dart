@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:master_price_picker/theme/colors.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -10,6 +11,8 @@ import 'scraper.dart';
 
 void main() async {
   // WebScraperAPI().runAliBabaScraper();
+   WidgetsFlutterBinding.ensureInitialized(); 
+  await Firebase.initializeApp();
   await LocatorInjector.setUpLocator();
   runApp(MyApp());
 }
