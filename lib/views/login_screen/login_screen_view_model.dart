@@ -47,7 +47,7 @@ class LoginScreenViewModel extends BaseViewModel {
           if (user.exists) {
             print(args["data"]);
             FirebaseFirestore.instance
-                .collection("users")
+                .collection("favorite")
                 .doc()
                 .set({
                   "uid": users.uid,
