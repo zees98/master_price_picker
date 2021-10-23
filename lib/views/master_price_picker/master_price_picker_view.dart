@@ -62,6 +62,25 @@ class MasterPricePickerView extends StatelessWidget {
                       ],
                     ),
                   ),
+                  FutureBuilder<FirebaseUser>(
+                      future: FirebaseAuth.instance.currentUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Expanded(
+                            child: Column(
+                              children: [
+                                _buildDrawerButton(),
+                                _buildDrawerButton(
+                                    icon: Icons.favorite,
+                                    title: "View Favourites",
+                                    subtitle: "View your past favourite ads",
+                                    onPressed: viewModel.createExcelOfProducts),
+                              ],
+                            ),
+                          );
+                        } else
+                          return Container();
+                      }),
                   Expanded(
                     flex: 1,
                     child: Container(),
@@ -133,6 +152,7 @@ class MasterPricePickerView extends StatelessWidget {
                                       print('UserID: ${userId}');
                                       if (userId != null) {
                                         //await FirebaseAuth.instance.signOut();
+
                                       } else {
                                         viewModel
                                             .navigateToLoginScreen(thisProduct);
