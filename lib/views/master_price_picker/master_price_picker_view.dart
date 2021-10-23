@@ -151,6 +151,7 @@ class MasterPricePickerView extends StatelessWidget {
                                           .currentUser();
                                       print('UserID: ${userId}');
                                       if (userId != null) {
+                                        // FirebaseAuth.instance.signOut();
                                         viewModel.addToFavorite(
                                             thisProduct.toJson());
                                       } else {
