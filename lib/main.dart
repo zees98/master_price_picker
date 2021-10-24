@@ -11,6 +11,8 @@ import 'scraper.dart';
 
 void main() async {
   // WebScraperAPI().runAliBabaScraper();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await LocatorInjector.setUpLocator();
   runApp(MyApp());
 }
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: backgroundColor,
         backgroundColor: backgroundColor,

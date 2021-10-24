@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:master_price_picker/core/locator.dart';
 import 'package:master_price_picker/products.dart';
 import 'package:master_price_picker/scraper.dart';
+import 'package:master_price_picker/views/favorite_screen/favorite_screen_view.dart';
 import 'package:master_price_picker/views/login_screen/login_screen_view.dart';
 import 'package:master_price_picker/views/product_detail/product_detail_view.dart';
 import 'package:open_file/open_file.dart';
@@ -126,9 +129,31 @@ class MasterPricePickerViewModel extends BaseViewModel {
     });
   }
 
-    navigateToLoginScreen(data) {
-    _navService.navigateToView(LoginScreenView(),
-        arguments: {"data": data});
+  addToFavorite(data) async {
+    var user = await FirebaseAuth.instance.currentUser();
+    FirebaseFirestore.instance
+        .collection("favorite")
+        .doc()
+        .set({
+          "uid": user.uid,
+          "product": data,
+          "DateTime": DateTime.now().toString(),
+        })
+        .then((result) => {
+              _navService.navigateToView(FavoriteScreenView()),
+            })
+        .catchError((err) {
+          notifyListeners();
+          _snackbarService.showSnackbar(
+            message: err.message.toString(),
+            title: "Error",
+          );
+        });
+    notifyListeners();
+  }
+
+  navigateToLoginScreen(data) {
+    _navService.navigateToView(LoginScreenView(), arguments: {"data": data});
   }
 
   MasterPricePickerViewModel() {

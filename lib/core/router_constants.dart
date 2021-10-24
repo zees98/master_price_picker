@@ -4,3 +4,6 @@ const String masterPricePickerViewRoute = 'masterPricePickerViewRoute';
 const String loginScreenViewRoute = 'loginScreenViewRoute';
 const String splashScreenViewRoute = 'splashScreenViewRoute';
 const String productDetailViewRoute = 'productDetailViewRoute';
+const String favoriteScreenViewRoute = 'favoriteScreenViewRoute';
+const String registerScreenViewRoute = 'registerScreenViewRoute';
+const String favouriteAdsViewRoute = 'favouriteAdsViewRoute';

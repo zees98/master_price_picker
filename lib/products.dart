@@ -38,4 +38,12 @@ class Product {
   set setImg(imgURL) {
     _imgURL = imgURL;
   }
+
+  Map<String, dynamic> toJson() => {
+        'name': _name,
+        'price': _price,
+        'link': _link,
+        'imgURL': _imgURL,
+        'ratings': _ratings,
+      };
 }

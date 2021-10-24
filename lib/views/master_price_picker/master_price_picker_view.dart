@@ -62,6 +62,25 @@ class MasterPricePickerView extends StatelessWidget {
                       ],
                     ),
                   ),
+                  FutureBuilder<FirebaseUser>(
+                      future: FirebaseAuth.instance.currentUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Expanded(
+                            child: Column(
+                              children: [
+                                _buildDrawerButton(),
+                                _buildDrawerButton(
+                                    icon: Icons.favorite,
+                                    title: "View Favourites",
+                                    subtitle: "View your past favourite ads",
+                                    onPressed: viewModel.createExcelOfProducts),
+                              ],
+                            ),
+                          );
+                        } else
+                          return Container();
+                      }),
                   Expanded(
                     flex: 1,
                     child: Container(),
@@ -127,15 +146,17 @@ class MasterPricePickerView extends StatelessWidget {
                                     price: thisProduct.getPrice,
                                     description: "",
                                     image: thisProduct.getImgURL,
-                                    onLike: () {
-                                      final userId =
-                                          FirebaseAuth.instance.currentUser;
+                                    onLike: () async {
+                                      var userId = await FirebaseAuth.instance
+                                          .currentUser();
                                       print('UserID: ${userId}');
                                       if (userId != null) {
-                                        //save to firebase
+                                        // FirebaseAuth.instance.signOut();
+                                        viewModel.addToFavorite(
+                                            thisProduct.toJson());
                                       } else {
-                                        viewModel
-                                            .navigateToLoginScreen(thisProduct);
+                                        viewModel.navigateToLoginScreen(
+                                            thisProduct.toJson());
                                       }
                                     },
                                     onPress: () => viewModel.onAdPress(i),
