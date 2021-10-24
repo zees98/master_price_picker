@@ -21,11 +21,11 @@ dependencies:
   animated_splash_screen:
     #firebase
   firebase_core:
-  firebase_auth:
+  firebase_auth: 
   cloud_firestore:
   # excel:
   downloads_path_provider: ^0.1.0
-  permission_handler: 5.1.0+2
+  permission_handler: ^5.1.0+2
   syncfusion_flutter_xlsio: ^19.3.46-beta
   open_file:
 dev_dependencies:
