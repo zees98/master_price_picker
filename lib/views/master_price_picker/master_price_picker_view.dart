@@ -51,6 +51,7 @@ class MasterPricePickerView extends StatelessWidget {
                     height: 20,
                   ),
                   Expanded(
+                    flex: 2,
                     child: Column(
                       children: [
                         _buildDrawerButton(),
@@ -59,28 +60,21 @@ class MasterPricePickerView extends StatelessWidget {
                             title: "Export",
                             subtitle: "Save your search as Excel sheet",
                             onPressed: viewModel.createExcelOfProducts),
-                      ],
-                    ),
-                  ),
-                  FutureBuilder<FirebaseUser>(
-                      future: FirebaseAuth.instance.currentUser(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Expanded(
-                            child: Column(
-                              children: [
-                                _buildDrawerButton(),
-                                _buildDrawerButton(
+                        FutureBuilder<FirebaseUser>(
+                            future: FirebaseAuth.instance.currentUser(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return _buildDrawerButton(
                                     icon: Icons.favorite,
                                     title: "View Favourites",
                                     subtitle: "View your past favourite ads",
-                                    onPressed: viewModel.createExcelOfProducts),
-                              ],
-                            ),
-                          );
-                        } else
-                          return Container();
-                      }),
+                                    onPressed: viewModel.navigateTofavourites);
+                              } else
+                                return Container();
+                            }),
+                      ],
+                    ),
+                  ),
                   Expanded(
                     flex: 1,
                     child: Container(),
@@ -91,9 +85,12 @@ class MasterPricePickerView extends StatelessWidget {
             appBar: AppBar(
               title: Text("Master Price Picker"),
               actions: [
-                CircleAvatar(
-                  backgroundColor: compColor,
-                  child: Icon(Icons.person_outline_rounded),
+                GestureDetector(
+                  onTap: viewModel.goToMyProfile,
+                  child: CircleAvatar(
+                    backgroundColor: compColor,
+                    child: Icon(Icons.person_outline_rounded),
+                  ),
                 ),
               ],
             ),

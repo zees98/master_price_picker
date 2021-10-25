@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:master_price_picker/core/locator.dart';
+import 'package:master_price_picker/core/router_constants.dart';
 import 'package:master_price_picker/views/favorite_screen/favorite_screen_view.dart';
+import 'package:master_price_picker/views/favourite_ads/favourite_ads_view.dart';
 import 'package:master_price_picker/views/register_screen/register_screen_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:master_price_picker/core/logger.dart';
@@ -33,6 +35,13 @@ class LoginScreenViewModel extends BaseViewModel {
     this.log = getLogger(this.runtimeType.toString());
   }
 
+  resetPassword() {
+    _snackbarService.showSnackbar(
+      title: "Feature not implemented",
+      message: "This feature will be added soon.",
+    );
+  }
+
   Future provideEmailSign() async {
     if (email != null && password != null) {
       try {
@@ -45,25 +54,28 @@ class LoginScreenViewModel extends BaseViewModel {
               .get();
           print(user.data());
           if (user.exists) {
-            print(args["data"]);
-            FirebaseFirestore.instance
-                .collection("favorite")
-                .doc()
-                .set({
-                  "uid": users.uid,
-                  "product": args['data'],
-                  "DateTime": DateTime.now().toString(),
-                })
-                .then((result) => {
-                      _navService.navigateToView(FavoriteScreenView()),
-                    })
-                .catchError((err) {
-                  notifyListeners();
-                  _snackbarService.showSnackbar(
-                    message: err.message.toString(),
-                    title: "Error",
-                  );
-                });
+            if (args != null)
+              FirebaseFirestore.instance
+                  .collection("favorite")
+                  .doc()
+                  .set({
+                    "uid": users.uid,
+                    "product": args['data'],
+                    "DateTime": DateTime.now().toString(),
+                  })
+                  .then((result) => {
+                        _navService.navigateToView(FavouriteAdsView()),
+                      })
+                  .catchError((err) {
+                    notifyListeners();
+                    _snackbarService.showSnackbar(
+                      message: err.message.toString(),
+                      title: "Error",
+                    );
+                  });
+            else {
+              _navService.clearStackAndShow(masterPricePickerViewRoute);
+            }
             notifyListeners();
           } else {
             turnOffLoader();

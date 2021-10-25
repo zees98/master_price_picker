@@ -7,3 +7,4 @@ const String productDetailViewRoute = 'productDetailViewRoute';
 const String favoriteScreenViewRoute = 'favoriteScreenViewRoute';
 const String registerScreenViewRoute = 'registerScreenViewRoute';
 const String favouriteAdsViewRoute = 'favouriteAdsViewRoute';
+const String myProfileViewRoute = 'myProfileViewRoute';

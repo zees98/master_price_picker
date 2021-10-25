@@ -3,10 +3,13 @@ import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:master_price_picker/core/locator.dart';
+import 'package:master_price_picker/core/router_constants.dart';
 import 'package:master_price_picker/products.dart';
 import 'package:master_price_picker/scraper.dart';
 import 'package:master_price_picker/views/favorite_screen/favorite_screen_view.dart';
+import 'package:master_price_picker/views/favourite_ads/favourite_ads_view.dart';
 import 'package:master_price_picker/views/login_screen/login_screen_view.dart';
+import 'package:master_price_picker/views/my_profile/my_profile_view.dart';
 import 'package:master_price_picker/views/product_detail/product_detail_view.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -140,7 +143,7 @@ class MasterPricePickerViewModel extends BaseViewModel {
           "DateTime": DateTime.now().toString(),
         })
         .then((result) => {
-              _navService.navigateToView(FavoriteScreenView()),
+              _navService.navigateToView(FavouriteAdsView()),
             })
         .catchError((err) {
           notifyListeners();
@@ -152,8 +155,22 @@ class MasterPricePickerViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  navigateTofavourites() {
+    _navService.navigateToView(FavouriteAdsView());
+  }
+
   navigateToLoginScreen(data) {
     _navService.navigateToView(LoginScreenView(), arguments: {"data": data});
+  }
+
+  goToMyProfile() {
+    _navService.navigateWithTransition(
+      MyProfileView(),
+      duration: Duration(
+        milliseconds: 500,
+      ),
+      transition: "leftToRight",
+    );
   }
 
   MasterPricePickerViewModel() {
