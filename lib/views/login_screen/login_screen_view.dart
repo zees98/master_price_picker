@@ -100,14 +100,7 @@ class LoginScreenView extends StatelessWidget {
                                         InkWell(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
-                                          onTap: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //       builder: (context) =>
-                                            //           ForgotPasswordScreenView(),
-                                            //     ));
-                                          },
+                                          onTap: viewModel.resetPassword,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(

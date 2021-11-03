@@ -14,10 +14,10 @@ class FavouriteAdsViewModel extends FutureViewModel<QuerySnapshot> {
 
   Future<QuerySnapshot> getMyFavourites() async {
     var uid = (await FirebaseAuth.instance.currentUser()).uid;
-    var data = await FirebaseFirestore.instance
+    var data = await Firestore.instance
         .collection('favorite')
         .where('uid', isEqualTo: uid)
-        .get();
+        .getDocuments();
     return data;
   }
 

@@ -32,6 +32,8 @@ class MasterPricePickerViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _snackbarService = locator<SnackbarService>();
 
+  final _scraper = WebScraperAPI();
+
   List<Product> products = [];
   bool isFetching = false;
 
@@ -48,9 +50,14 @@ class MasterPricePickerViewModel extends BaseViewModel {
     }
     isFetching = true;
     notifyListeners();
-    products = await WebScraperAPI().runAliBabaScraper(searchQuery);
+    var data = await Future.wait<List<Product>>([
+      _scraper.runAliBabaScraper(searchQuery),
+      _scraper.runOlxScraper(searchQuery),
+    ]);
+
+    products = [...data[0], ...data[1]];
     isFetching = false;
-    print(products[0].getName);
+    // print(products[0].getName);
     notifyListeners();
     print(products.length);
   }
@@ -134,10 +141,10 @@ class MasterPricePickerViewModel extends BaseViewModel {
 
   addToFavorite(data) async {
     var user = await FirebaseAuth.instance.currentUser();
-    FirebaseFirestore.instance
+    Firestore.instance
         .collection("favorite")
-        .doc()
-        .set({
+        .document()
+        .setData({
           "uid": user.uid,
           "product": data,
           "DateTime": DateTime.now().toString(),

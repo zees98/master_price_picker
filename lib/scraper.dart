@@ -3,16 +3,21 @@ import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as parser;
 import 'package:master_price_picker/products.dart';
 import 'package:web_scraper/web_scraper.dart';
+import 'package:puppeteer/puppeteer.dart';
 
 class WebScraperAPI {
   var _url = 'https://www.alibaba.com/trade';
+  var darazURL = "https://www.daraz.pk/catalog/?q=";
+  var olxURL = "https://www.olx.com.pk/items/q-";
 
-  runAliBabaScraper(query) async {
+  Future<List<Product>> runAliBabaScraper(query) async {
     var route = "/search?fsb=y&IndexArea=product_en&CatId=&SearchText=$query";
     var cardClassName = "J-offer-wrapper";
     List<Product> products = [];
     try {
-      final loadPage = await http.get(_url + route);
+      final loadPage = await http.get(
+        Uri.parse(_url + route),
+      );
       html.Document document = parser.parse(loadPage.body);
       var prices = document.getElementsByClassName(cardClassName);
 
@@ -31,11 +36,15 @@ class WebScraperAPI {
         // print(imgLink);
         var url = prices[i].querySelectorAll("[href]")[0].attributes['href'];
         // print(url);
-        var price = prices[i]
-            .getElementsByClassName("elements-offer-price-normal__price")[0]
-            .text;
-        price = price.split("-")[0].replaceAll("US\$", "").replaceAll(",", "");
-        var doublePrice = double.parse(price);
+        var priceElement = prices[i]
+            .getElementsByClassName("elements-offer-price-normal__price");
+        var price = priceElement.isEmpty ? "N/A" : priceElement.first.text;
+        price = price
+            .split("-")[0]
+            .replaceAll("US\$", "")
+            .replaceAll(",", "")
+            .replaceAll("\$", "");
+        var doublePrice = double.tryParse(price);
         // print(name);
         products.add(
           Product(
@@ -51,6 +60,7 @@ class WebScraperAPI {
       print(products.length);
       return products;
     } on Exception catch (e) {
+      print(e);
       print("Scraper stuck on an error");
       return products;
     }
@@ -68,6 +78,20 @@ class WebScraperAPI {
       return [0];
     } catch (e) {
       return [];
+    }
+  }
+
+  Future<List<Product>> runOlxScraper(query) async {
+    List<Product> products = [];
+    try {
+      final loadPage = await http.get(
+        Uri.parse(olxURL + query),
+      );
+      return products;
+    } catch (e) {
+      print(e);
+      print("Scraper stuck on an error");
+      return products;
     }
   }
 }

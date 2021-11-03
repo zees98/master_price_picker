@@ -23,7 +23,7 @@ class FavouriteAdsView extends StatelessWidget {
                     : Expanded(
                         child: ListView(
                           children: <Widget>[
-                            ...viewModel.data.docs.map((e) {
+                            ...viewModel.data.documents.map((e) {
                               return Container(
                                 margin: EdgeInsets.symmetric(
                                   horizontal: 8.0,
@@ -35,13 +35,13 @@ class FavouriteAdsView extends StatelessWidget {
                                 ),
                                 child: ListTile(
                                   leading: Image.network(
-                                      e.data()['product']['imgURL']),
-                                  title: Text(e.data()['product']['name']),
-                                  subtitle: Text(
-                                      "\$ ${e.data()['product']['price']}"),
+                                      e.data['product']['imgURL']),
+                                  title: Text(e.data['product']['name']),
+                                  subtitle:
+                                      Text("\$ ${e.data['product']['price']}"),
                                   trailing: IconButton(
                                     onPressed: () => viewModel
-                                        .openURL(e.data()['product']['link']),
+                                        .openURL(e.data['product']['link']),
                                     icon: Icon(
                                       Icons.arrow_forward_ios,
                                     ),

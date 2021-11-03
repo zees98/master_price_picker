@@ -48,17 +48,17 @@ class LoginScreenViewModel extends BaseViewModel {
         var users = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         try {
-          var user = await FirebaseFirestore.instance
+          var user = await Firestore.instance
               .collection('users')
-              .doc(users.uid)
+              .document(users.uid)
               .get();
-          print(user.data());
+          // print(user.data());
           if (user.exists) {
             if (args != null)
-              FirebaseFirestore.instance
+              Firestore.instance
                   .collection("favorite")
-                  .doc()
-                  .set({
+                  .document()
+                  .setData({
                     "uid": users.uid,
                     "product": args['data'],
                     "DateTime": DateTime.now().toString(),

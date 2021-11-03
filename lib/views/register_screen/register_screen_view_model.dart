@@ -9,8 +9,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 class RegisterScreenViewModel extends BaseViewModel {
   Logger log;
-    var email;
-    var name;
+  var email;
+  var name;
   var password;
   final _navService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
@@ -29,37 +29,36 @@ class RegisterScreenViewModel extends BaseViewModel {
   Future provideEmailSign() async {
     if (email != null && password != null) {
       try {
-          FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((currentUser) async{
-           FirebaseFirestore.instance
-                .collection("users")
-                .doc(currentUser.uid)
-                .set({
-                  "uid": currentUser.uid,
-                  'email':email,
-                  "name":name,
-                  "DateTime": DateTime.now().toString(),
-                })
-                .then((result) => {
-                      _navService.navigateToView(LoginScreenView()),
-                    })
-                .catchError((err) {
-                  notifyListeners();
-                  _snackbarService.showSnackbar(
-                    message: err.message.toString(),
-                    title: "Error",
-                  );
-                });
-            notifyListeners();
-          }).catchError((err) {
+        FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((currentUser) async {
+          Firestore.instance
+              .collection("users")
+              .document(currentUser.uid)
+              .setData({
+                "uid": currentUser.uid,
+                'email': email,
+                "name": name,
+                "DateTime": DateTime.now().toString(),
+              })
+              .then((result) => {
+                    _navService.navigateToView(LoginScreenView()),
+                  })
+              .catchError((err) {
                 notifyListeners();
                 _snackbarService.showSnackbar(
                   message: err.message.toString(),
                   title: "Error",
                 );
               });
-   
+          notifyListeners();
+        }).catchError((err) {
+          notifyListeners();
+          _snackbarService.showSnackbar(
+            message: err.message.toString(),
+            title: "Error",
+          );
+        });
       } on Exception catch (_) {
         turnOffLoader();
 
@@ -68,8 +67,9 @@ class RegisterScreenViewModel extends BaseViewModel {
       }
     }
   }
-    navigateToLoginScreen(){
-     _navService.navigateToView(LoginScreenView());
+
+  navigateToLoginScreen() {
+    _navService.navigateToView(LoginScreenView());
   }
 
   RegisterScreenViewModel() {
