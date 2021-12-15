@@ -3,7 +3,7 @@ import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as parser;
 import 'package:master_price_picker/products.dart';
 import 'package:web_scraper/web_scraper.dart';
-import 'package:puppeteer/puppeteer.dart';
+// import 'package:puppeteer/puppeteer.dart';
 
 class WebScraperAPI {
   var _url = 'https://www.alibaba.com/trade';
@@ -87,6 +87,10 @@ class WebScraperAPI {
       final loadPage = await http.get(
         Uri.parse(olxURL + query),
       );
+      html.Document document = parser.parse(loadPage.body);
+      print("OLX Scraper");
+      print(document.body.getElementsByClassName("Listing").length);
+
       return products;
     } catch (e) {
       print(e);

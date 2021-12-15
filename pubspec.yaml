@@ -14,7 +14,7 @@ dependencies:
   stacked_services: ^0.5.4+2
   responsive_builder: ^0.2.0+2
   equatable: ^1.2.4
-  web_scraper: ^0.0.6
+  web_scraper: 
   http:
   url_launcher:
   flutter_barcode_scanner: ^2.0.0

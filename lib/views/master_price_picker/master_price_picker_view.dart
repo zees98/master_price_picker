@@ -83,7 +83,7 @@ class MasterPricePickerView extends StatelessWidget {
               ),
             ),
             appBar: AppBar(
-              title: Text("Master Price Picker"),
+              title: Text("Smart Price Picker"),
               actions: [
                 GestureDetector(
                   onTap: viewModel.goToMyProfile,
@@ -116,6 +116,7 @@ class MasterPricePickerView extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
+                          
                           Text(
                             "Recent Items",
                             textAlign: TextAlign.start,
