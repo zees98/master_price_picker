@@ -18,7 +18,7 @@ class MyProfileView extends StatelessWidget {
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : viewModel.data != null
+              : viewModel.user_data != null
                   ? Column(
                       children: <Widget>[
                         Expanded(
@@ -36,7 +36,7 @@ class MyProfileView extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            viewModel.data.email,
+                            viewModel.user_data.email,
                             style: titleFont,
                             textAlign: TextAlign.center,
                           ),

@@ -142,11 +142,11 @@ class MasterPricePickerViewModel extends BaseViewModel {
   }
 
   addToFavorite(data) async {
-    var user = await FirebaseAuth.instance.currentUser();
-    Firestore.instance
+    var user = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
         .collection("favorite")
-        .document()
-        .setData({
+        .doc()
+        .set({
           "uid": user.uid,
           "product": data,
           "DateTime": DateTime.now().toString(),

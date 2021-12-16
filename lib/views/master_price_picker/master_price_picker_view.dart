@@ -61,18 +61,12 @@ class MasterPricePickerView extends StatelessWidget {
                           subtitle: "Save your search as Excel sheet",
                           onPressed: viewModel.createExcelOfProducts,
                         ),
-                        FutureBuilder<FirebaseUser>(
-                            future: FirebaseAuth.instance.currentUser(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return _buildDrawerButton(
-                                    icon: Icons.favorite,
-                                    title: "View Favourites",
-                                    subtitle: "View your past favourite ads",
-                                    onPressed: viewModel.navigateTofavourites);
-                              } else
-                                return Container();
-                            }),
+                        if (FirebaseAuth.instance.currentUser != null)
+                          _buildDrawerButton(
+                              icon: Icons.favorite,
+                              title: "View Favourites",
+                              subtitle: "View your past favourite ads",
+                              onPressed: viewModel.navigateTofavourites)
                       ],
                     ),
                   ),
@@ -145,8 +139,8 @@ class MasterPricePickerView extends StatelessWidget {
                                     description: "",
                                     image: thisProduct.getImgURL,
                                     onLike: () async {
-                                      var userId = await FirebaseAuth.instance
-                                          .currentUser();
+                                      var userId =
+                                          FirebaseAuth.instance.currentUser.uid;
                                       print('UserID: ${userId}');
                                       if (userId != null) {
                                         // FirebaseAuth.instance.signOut();

@@ -8,13 +8,15 @@ import 'package:stacked/stacked.dart';
 import 'package:master_price_picker/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class MyProfileViewModel extends FutureViewModel {
+class MyProfileViewModel extends BaseViewModel {
   Logger log;
   var _navService = locator<NavigationService>();
   var _snackbarSrevice = locator<SnackbarService>();
+  User user_data;
 
   MyProfileViewModel() {
     log = getLogger(this.runtimeType.toString());
+    user_data = FirebaseAuth.instance.currentUser;
   }
   logout() {
     FirebaseAuth.instance.signOut().then((value) {
@@ -29,10 +31,5 @@ class MyProfileViewModel extends FutureViewModel {
 
   navigateToLoginScreen() {
     _navService.navigateToView(LoginScreenView());
-  }
-
-  @override
-  Future futureToRun() {
-    return FirebaseAuth.instance.currentUser();
   }
 }

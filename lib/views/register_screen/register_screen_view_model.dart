@@ -32,11 +32,11 @@ class RegisterScreenViewModel extends BaseViewModel {
         FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((currentUser) async {
-          Firestore.instance
+          FirebaseFirestore.instance
               .collection("users")
-              .document(currentUser.uid)
-              .setData({
-                "uid": currentUser.uid,
+              .doc(currentUser.user.uid)
+              .set({
+                "uid": currentUser.user.uid,
                 'email': email,
                 "name": name,
                 "DateTime": DateTime.now().toString(),

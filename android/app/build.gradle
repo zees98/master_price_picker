@@ -58,10 +58,10 @@ flutter {
 
 dependencies {
     implementation 'com.google.firebase:firebase-firestore:19.0.0'
-    implementation 'com.google.firebase:firebase-auth:17.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    compile 'androidx.annotation:annotation:1.0.2'
-    implementation platform('com.google.firebase:firebase-bom:28.4.2')
+    // implementation 'com.google.firebase:firebase-auth:17.0.0'
+    // implementation 'androidx.appcompat:appcompat:1.0.2'
+    // compile 'androidx.annotation:annotation:1.0.2'
+    implementation platform('com.google.firebase:firebase-bom:29.0.2')
     implementation 'com.google.firebase:firebase-analytics'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
