@@ -56,6 +56,8 @@ class MasterPricePickerViewModel extends BaseViewModel {
     ]);
 
     products = [...data[0], ...data[1]];
+
+    products.sort((a, b) => a.getPrice < b.getPrice ? -1 : 1);
     isFetching = false;
     // print(products[0].getName);
     notifyListeners();

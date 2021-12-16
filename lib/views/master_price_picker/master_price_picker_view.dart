@@ -39,7 +39,7 @@ class MasterPricePickerView extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        "SMART\nPRICE PICKER",
+                        "SMART\nPRICE SELECTOR",
                         textAlign: TextAlign.center,
                         style: titleFont.copyWith(
                           color: backgroundColor,
@@ -56,10 +56,11 @@ class MasterPricePickerView extends StatelessWidget {
                       children: [
                         _buildDrawerButton(),
                         _buildDrawerButton(
-                            icon: Icons.file_copy,
-                            title: "Export",
-                            subtitle: "Save your search as Excel sheet",
-                            onPressed: viewModel.createExcelOfProducts),
+                          icon: Icons.file_copy,
+                          title: "Export",
+                          subtitle: "Save your search as Excel sheet",
+                          onPressed: viewModel.createExcelOfProducts,
+                        ),
                         FutureBuilder<FirebaseUser>(
                             future: FirebaseAuth.instance.currentUser(),
                             builder: (context, snapshot) {
@@ -83,7 +84,7 @@ class MasterPricePickerView extends StatelessWidget {
               ),
             ),
             appBar: AppBar(
-              title: Text("Smart Price Picker"),
+              title: Text("Smart Price Selector"),
               actions: [
                 GestureDetector(
                   onTap: viewModel.goToMyProfile,
@@ -116,9 +117,8 @@ class MasterPricePickerView extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          
                           Text(
-                            "Recent Items",
+                            "Search Results",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,

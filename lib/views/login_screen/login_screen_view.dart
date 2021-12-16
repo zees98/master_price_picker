@@ -26,7 +26,7 @@ class LoginScreenView extends StatelessWidget {
                     children: [
                       Image.asset(
                         'assets/logo.png',
-                        height: 130,
+                        height: 150,
                       ),
                     ],
                   ),
@@ -132,18 +132,21 @@ class LoginScreenView extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text("Don't have an account?"),
                                         GestureDetector(
-                                            child: Text(
-                                          "Sign Up",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                          child: Text(
+                                            "Sign Up",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          onTap: () {
+                                            viewModel
+                                                .navigateToRegisterScreen();
+                                          },
                                         ),
-                                        onTap: (){
-                                          viewModel.navigateToRegisterScreen();
-                                        },),
                                       ],
                                     ),
                                   )

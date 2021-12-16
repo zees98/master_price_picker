@@ -23,7 +23,6 @@ class FavouriteAdsViewModel extends FutureViewModel<QuerySnapshot> {
 
   openURL(url) async {
     print(url);
-
     launch(url);
   }
 
