@@ -30,6 +30,8 @@ dependencies:
   permission_handler: 8.3.0
   syncfusion_flutter_xlsio: ^19.3.46-beta
   open_file:
+  puppeteer: 2.5.0
+  dart_sentiment: ^0.0.9
 dev_dependencies:
   flutter_test:
     sdk: flutter

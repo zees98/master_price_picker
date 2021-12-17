@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as html;
 import 'package:html/parser.dart' as parser;
 import 'package:master_price_picker/products.dart';
 import 'package:web_scraper/web_scraper.dart';
-// import 'package:puppeteer/puppeteer.dart';
+import 'package:puppeteer/puppeteer.dart';
 
 class WebScraperAPI {
   var _url = 'https://www.alibaba.com/trade';
@@ -64,6 +66,17 @@ class WebScraperAPI {
       print("Scraper stuck on an error");
       return products;
     }
+  }
+
+  Future<List> getAliBabaReview(ad) async {
+    var results = await http.get(Uri.parse(
+        'https://mysterious-river-61988.herokuapp.com/alibaba/reviews?url=${ad}'));
+    var body = results.body;
+
+    var json =  jsonDecode(body);
+    print(json);
+
+    return json;
   }
 
   scrapOneAd(adLink) async {
