@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:master_price_picker/theme/colors.dart';
 
 class Field extends StatelessWidget {
   const Field({
@@ -34,7 +35,7 @@ class Field extends StatelessWidget {
       padding: const EdgeInsets.only(top: 15, left: 24, right: 24, bottom: 10),
       child: Container(
         decoration: BoxDecoration(
-          color: color,
+          color: compColor,
           borderRadius: BorderRadius.all(Radius.circular(5)),
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -57,7 +58,7 @@ class Field extends StatelessWidget {
                 obscureText: type,
                 onChanged: onchanged,
                 style: TextStyle(
-                  color: textColor,
+                  color: Colors.white,
                   fontFamily: 'WorkSans',
                 ),
                 cursorColor: Color(0xFF4FBE9F),

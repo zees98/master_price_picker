@@ -78,33 +78,90 @@ class MasterPricePickerView extends StatelessWidget {
               ),
             ),
             appBar: AppBar(
-              title: Text("Smart Price Selector"),
-              actions: [
-                GestureDetector(
-                  onTap: viewModel.goToMyProfile,
-                  child: CircleAvatar(
-                    backgroundColor: compColor,
-                    child: Icon(Icons.person_outline_rounded),
-                  ),
+              title: Text(
+                "Smart Price Selector",
+                style: titleFont.copyWith(
+                  fontSize: 18,
                 ),
+              ),
+              actions: [
+                Builder(builder: (context) {
+                  if (FirebaseAuth.instance.currentUser != null)
+                    return GestureDetector(
+                        onTap: viewModel.goToMyProfile,
+                        child: CircleAvatar(
+                          backgroundColor: compColor,
+                          child: Icon(Icons.person_outline_rounded),
+                        ));
+                  return Container(
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10).copyWith(right: 10),
+                    child: MaterialButton(
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(
+                              color: cardColor,
+                            )),
+                        child: Row(
+                          children: [
+                            Icon(Icons.lock),
+                            SizedBox(width: 10),
+                            Text("Login"),
+                          ],
+                        ),
+                        onPressed: () =>
+                            viewModel.navigateToLoginScreenNoArgs()),
+                  );
+                }),
               ],
             ),
             body: Center(
                 child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(7.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomTextField(
-                    labelText: "Search your product here.",
+                    labelText: viewModel.searchQuery.isEmpty
+                        ? "Search your product here."
+                        : viewModel.searchQuery,
                     onChanged: viewModel.onQueryChange,
-                    suffix: IconButton(
-                        onPressed: viewModel.onClickSearch,
-                        icon: Icon(
-                          Icons.search,
-                          color: compColor,
-                        )),
+                    suffix: Row(
+                      children: [
+                        IconButton(
+                            onPressed: viewModel.onClickSearch,
+                            icon: Icon(
+                              Icons.search,
+                              color: compColor,
+                            )),
+                        IconButton(
+                            onPressed: viewModel.onClearSearch,
+                            icon: Icon(
+                              Icons.cancel,
+                              color: compColor,
+                            )),
+                      ],
+                    ),
                   ),
+                  if (viewModel.searchQuery.isEmpty &&
+                      viewModel.products.isEmpty)
+                    Expanded(
+                      child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 3.2 / 4,
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 24.0),
+                          itemCount: viewModel.gridPictures.length,
+                          itemBuilder: (context, i) {
+                            var thisCategory = viewModel.gridPictures[i];
+                            return CategoryCard(
+                                category: thisCategory,
+                                onPress: () => viewModel.onGridItemPress(i));
+                          }),
+                    ),
                   if (viewModel.isFetching)
                     Center(child: CircularProgressIndicator()),
                   if (viewModel.products.isNotEmpty)
@@ -169,9 +226,9 @@ class MasterPricePickerView extends StatelessWidget {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomNavigationBar(
-                backgroundColor: backgroundColor2,
-                selectedItemColor: compColor,
-                unselectedItemColor: Colors.grey,
+                backgroundColor: backgroundColor2.withRed(10).withGreen(120),
+                selectedItemColor: cardColor,
+                unselectedItemColor: Colors.white54,
                 type: BottomNavigationBarType.fixed,
                 items: [
                   BottomNavigationBarItem(
@@ -229,8 +286,47 @@ class MasterPricePickerView extends StatelessWidget {
   }
 }
 
+class CategoryCard extends StatelessWidget {
+  final String category;
+  final onPress;
+
+  const CategoryCard({Key key, this.category, this.onPress}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return InkWell(
+      onTap: onPress,
+      child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 5.0).copyWith(bottom: 10),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                blurRadius: 10,
+              ),
+            ],
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset('assets/$category.png'),
+              Text(
+                "${category[0].toUpperCase()}${category.substring(1)}",
+                style: smallHeading,
+              ),
+            ],
+          )),
+    );
+  }
+}
+
 class ProductCard extends StatelessWidget {
   final image, title, description, price, onLike, onPress;
+
   const ProductCard({
     Key key,
     this.image,

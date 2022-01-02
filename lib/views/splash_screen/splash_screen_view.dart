@@ -14,8 +14,8 @@ class SplashScreenView extends StatelessWidget {
         return AnimatedSplashScreen(
           animationDuration: Duration(milliseconds: 800),
           nextScreen: MasterPricePickerView(),
-          splash: 'assets/logo.png',
-          splashIconSize: 200,
+          splash: 'assets/logo_2.png',
+          splashIconSize: 350,
           splashTransition: SplashTransition.fadeTransition,
           pageTransitionType: PageTransitionType.fade,
         );

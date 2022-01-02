@@ -156,32 +156,29 @@ class ProductDetailView extends StatelessWidget {
                                             child: Row(
                                               children: [
                                                 Expanded(
+                                                  flex: 6,
                                                   child: Text(
-                                                    e,
+                                                    e['review'],
                                                     textAlign: TextAlign.start,
                                                   ),
                                                 ),
-                                                // Expanded(
-                                                //   child: doSentiment(
-                                                //               e)['score'] >
-                                                //           0.05
-                                                //       ? Icon(
-                                                //           Icons
-                                                //               .sentiment_satisfied,
-                                                //           color: Colors.green)
-                                                //       : doSentiment(
-                                                //                   e)['score'] <
-                                                //               -0.05
-                                                //           ? Icon(
-                                                //               Icons
-                                                //                   .sentiment_dissatisfied,
-                                                //               color: Colors.red)
-                                                //           : Icon(
-                                                //               Icons
-                                                //                   .sentiment_neutral,
-                                                //               color:
-                                                //                   Colors.grey),
-                                                // ),
+                                                Expanded(
+                                                  child: e['sentiment'] > 0.05
+                                                      ? Icon(
+                                                          Icons
+                                                              .sentiment_satisfied,
+                                                          color: Colors.green)
+                                                      : e['sentiment'] < -0.05
+                                                          ? Icon(
+                                                              Icons
+                                                                  .sentiment_dissatisfied,
+                                                              color: Colors.red)
+                                                          : Icon(
+                                                              Icons
+                                                                  .sentiment_neutral,
+                                                              color:
+                                                                  Colors.grey),
+                                                ),
                                               ],
                                             ),
                                           );

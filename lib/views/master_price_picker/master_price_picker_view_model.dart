@@ -39,8 +39,27 @@ class MasterPricePickerViewModel extends BaseViewModel {
 
   String searchQuery = "";
 
+  List<String> gridPictures = [
+    'clothes',
+    'computer',
+    'sports',
+    'travel'
+  ];
+
+  onGridItemPress(index) {
+    searchQuery = gridPictures[index];
+    onClickSearch();
+    notifyListeners();
+  }
+
   onQueryChange(str) {
     searchQuery = str;
+  }
+
+  onClearSearch() {
+    searchQuery = "";
+    products.clear();
+    notifyListeners();
   }
 
   onClickSearch() async {
@@ -168,9 +187,14 @@ class MasterPricePickerViewModel extends BaseViewModel {
     _navService.navigateToView(FavouriteAdsView());
   }
 
+  navigateToLoginScreenNoArgs() {
+    _navService.navigateToView(LoginScreenView());
+  }
   navigateToLoginScreen(data) {
     _navService.navigateToView(LoginScreenView(), arguments: {"data": data});
   }
+
+
 
   goToMyProfile() {
     _navService.navigateWithTransition(

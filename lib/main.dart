@@ -28,19 +28,19 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: backgroundColor,
-        backgroundColor: backgroundColor,
-        appBarTheme: AppBarTheme(
-          backgroundColor: backgroundColor,
-          elevation: 0.0,
-          textTheme: TextTheme(
-            bodyText1: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
+      // theme: ThemeData(
+      //   scaffoldBackgroundColor: backgroundColor,
+      //   backgroundColor: backgroundColor,
+      //   appBarTheme: AppBarTheme(
+      //     backgroundColor: backgroundColor,
+      //     elevation: 0.0,
+      //     textTheme: TextTheme(
+      //       bodyText1: TextStyle(
+      //         color: Colors.black,
+      //       ),
+      //     ),
+      //   ),
+      // ),
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.Router.generateRoute,
       initialRoute: splashScreenViewRoute,

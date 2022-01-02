@@ -25,7 +25,7 @@ class LoginScreenView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/logo.png',
+                        'assets/logo_2.png',
                         height: 150,
                       ),
                     ],
@@ -122,7 +122,7 @@ class LoginScreenView extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: AppButton(
                                       text: "Login",
-                                      color: backgroundColor,
+                                      color: compColor,
                                       textColor: Colors.white,
                                       onpressed: () async {
                                         viewModel.provideEmailSign();
